@@ -14,7 +14,7 @@ script:
 after_script:
   - npminstall codecov && codecov
 addons:
-  ssh_known_hosts: "${note_server_host}"
+  ssh_known_hosts: ${note_server_host}
 after_success:
   - npm prune --production
   - tar -jcf note-service.tar.bz2 *
