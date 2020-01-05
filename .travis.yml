@@ -15,4 +15,4 @@ after_success:
   - tar -jcf note-service.tar.bz2 *
   - scp note-service.tar.bz2 ${note_server_username}@${note_server_host}:/home/app/
   - ssh ${note_server_username}@${note_server_host} 'mkdir -p note-service && tar -jxf note-service.tar.bz2 -C note-service'
-  - ssh ${note_server_username}@${note_server_host} 'cd note-service && yarn start'
+  - ssh ${note_server_username}@${note_server_host} 'cd note-service && yarn stop && yarn start'
