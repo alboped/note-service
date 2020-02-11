@@ -7,20 +7,17 @@ before_install:
     -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 600 ~/.ssh/id_rsa
   - echo -e "Host ${note_server_host}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - npm i npminstall -g
 install:
-  - npminstall
+  - npm install --production
 script:
   - npm run ci
 after_script:
-  - npminstall codecov && codecov
+  - npm install codecov && codecov
 addons:
   ssh_known_hosts: "${note_server_host}"
 after_success:
-  - npm prune --production
   - tar -jcf note-service.tar.bz2 *
   - scp note-service.tar.bz2 ${note_server_username}@${note_server_host}:/home/app/
-  - ssh ${note_server_username}@${note_server_host} 'mkdir -p note-service && tar -jxf
-    note-service.tar.bz2 -C note-service'
-  - ssh ${note_server_username}@${note_server_host} 'cd note-service && yarn stop &&
-    yarn start'
+  - ssh ${note_server_username}@${note_server_host} 'cd /home/app/note-service && yarn stop'
+  - ssh ${note_server_username}@${note_server_host} 'cd /home/app && rm -rf ./note-service && mkdir -p note-service && tar -jxf note-service.tar.bz2 -C note-service'
+  - ssh ${note_server_username}@${note_server_host} 'cd /home/app/note-service && yarn start'
