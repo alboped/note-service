@@ -7,12 +7,13 @@ before_install:
     -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 600 ~/.ssh/id_rsa
   - echo -e "Host ${note_server_host}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - npm install npminstall -g
 install:
-  - npm install --production
+  - npminstall --production
 script:
   - npm run ci
 after_script:
-  - npm install codecov && codecov
+  - npminstall codecov && codecov
 addons:
   ssh_known_hosts: "${note_server_host}"
 after_success:
