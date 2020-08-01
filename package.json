@@ -33,7 +33,7 @@
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
-    "pack": "tar --warning=no-file-changed -zcvf ./release.tar.gz --exclude=.git --exclude=*.gz ."
+    "pack": "tar --warning=no-file-changed -zcvf ./release.tar.gz --exclude=.git --exclude=yarn.lock --exclude=*.gz ."
   },
   "ci": {
     "version": "10"
